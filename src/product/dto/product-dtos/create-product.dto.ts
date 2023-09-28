@@ -8,10 +8,10 @@ export class CreateProductDto {
   @IsString()
   name: string;
 
-  // @IsNotEmpty()
-  // @IsNumber()
-  // @Min(0)
-  // price: number;
+  @IsNotEmpty()
+  @IsNumber()
+  @Min(0)
+  price: number;
 
   @IsNotEmpty()
   @IsString()
@@ -29,10 +29,10 @@ export class CreateProductDto {
   @IsString()
   category: ID;
 
-  // @IsNotEmpty()
-  // @IsNumber()
-  // @Min(1)
-  // count: number;
+  @IsNotEmpty()
+  @IsNumber()
+  @Min(1)
+  count: number;
 
   @IsNotEmpty()
   @IsString()

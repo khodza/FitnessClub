@@ -16,11 +16,11 @@ export class Product extends Document {
   })
   name: string;
 
-  // @Prop({
-  //   type: String,
-  //   required: [true, 'Add price name'],
-  // })
-  // price: number;
+  @Prop({
+    type: String,
+    required: [true, 'Add price name'],
+  })
+  price: number;
 
   @Prop({
     type: String,
@@ -53,10 +53,10 @@ export class Product extends Document {
   })
   type: string;
 
-  // @Prop({
-  //   type: Number,
-  // })
-  // count: number;
+  @Prop({
+    type: Number,
+  })
+  count: number;
 }
 
 export const ProductSchema = SchemaFactory.createForClass(Product);
