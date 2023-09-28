@@ -1,0 +1,3 @@
+Delete unused images   
+update db, if image of user deleted\
+validate images
