@@ -54,7 +54,7 @@ export class ImageService {
   async getImageStream(filename: string): Promise<Readable> {
     const filePath = join(this.uploadDirectory, filename);
 
-    if (!existsSync(filePath)) {
+    if (!existsAsync(filePath)) {
       throw new NotFoundException('Image not found');
     }
 

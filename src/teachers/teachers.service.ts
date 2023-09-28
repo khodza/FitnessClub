@@ -35,7 +35,9 @@ export class TeachersService {
       return newTeacher;
     } catch (err) {
       this.log.error(err);
-      await this.imageService.deleteImage(createTeacherDto.avatar);
+      if (avatarFile) {
+        await this.imageService.deleteImage(createTeacherDto.avatar);
+      }
       throw new BadRequestException(err.message, err);
     }
   }
@@ -125,6 +127,9 @@ export class TeachersService {
       const teacher = await this.findTeacher(id);
       return teacher;
     } catch (err) {
+      if (avatarFile) {
+        await this.imageService.deleteImage(updateOptions.avatar);
+      }
       this.log.error(err);
       throw new BadRequestException(err.message, err);
     }

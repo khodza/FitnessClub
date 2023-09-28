@@ -71,6 +71,12 @@ export class User extends Document {
     default: ['user'],
   })
   roles: string[];
+
+  @Prop({
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Product',
+  })
+  products: mongoose.Types.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
