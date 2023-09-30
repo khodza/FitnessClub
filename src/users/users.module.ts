@@ -9,16 +9,25 @@ import { jwtModule } from 'src/modules/jwt.module';
 import { JwtStrategy } from 'src/auth/strategies/jwt.strategy';
 import { LocalStrategy } from 'src/auth/strategies/local.strategy';
 import { ImageService } from 'src/image.service';
+import { VerificationService } from 'src/auth/verification.service';
+import { EmailService } from 'src/email.service';
+import { VerificationSchema } from 'src/auth/verification.schema';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+    MongooseModule.forFeature([
+      { name: 'Verification', schema: VerificationSchema },
+    ]),
+
     jwtModule,
   ],
   controllers: [UsersController, AuthController],
   providers: [
     UsersService,
     AuthService,
+    VerificationService,
+    EmailService,
     JwtStrategy,
     LocalStrategy,
     {

@@ -5,10 +5,12 @@ import {
   Request,
   BadRequestException,
   Logger,
+  Body,
 } from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { VeryfyDto } from './dto/verify.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -53,9 +55,23 @@ export class AuthController {
   @Post('login')
   async login(@Request() req) {
     try {
-      const token = await this.authService.login(req.user);
-      const user = await this.usersService.findUserByEmail(req.user.email);
-      return { token, user };
+      const message = await this.authService.login(req.user);
+      return { message };
+    } catch (err) {
+      this.log.error(err);
+      throw new BadRequestException(err.message, err);
+    }
+  }
+
+  // VERIFY VERIFICATION CODE
+  @Post('verify')
+  async verify(@Body() body: VeryfyDto) {
+    try {
+      const token = await this.authService.verifyVerificationCode(
+        body.email,
+        body.verificationCode,
+      );
+      return { token };
     } catch (err) {
       this.log.error(err);
       throw new BadRequestException(err.message, err);
