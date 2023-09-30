@@ -55,7 +55,7 @@ export class UsersController {
   }
 
   //Get Avatar of User
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('images/:filename')
   async getUserImage(
     @Param('filename') filename: string,

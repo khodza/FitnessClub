@@ -88,7 +88,7 @@ export class ProductsController {
   }
 
   //Get Avatar of Product [admin,user]
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('images/:filename')
   async getProductImage(
     @Param('filename') filename: string,

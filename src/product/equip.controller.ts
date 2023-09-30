@@ -87,7 +87,7 @@ export class EquipController {
   }
 
   //Get Avatar of Equipment [admin,user]
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get('images/:filename')
   async getEquipImage(
     @Param('filename') filename: string,
