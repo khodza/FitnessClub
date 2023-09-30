@@ -10,7 +10,7 @@ import { User } from './user.schema';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as mongoose from 'mongoose';
-import { ImageService } from 'src/image.service';
+import { ImageService } from 'src/services/image.service';
 import { Readable } from 'stream';
 
 @Injectable()

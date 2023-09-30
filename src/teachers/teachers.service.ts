@@ -10,7 +10,7 @@ import * as mongoose from 'mongoose';
 import { Teacher } from './teachers.schema';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
-import { ImageService } from 'src/image.service';
+import { ImageService } from 'src/services/image.service';
 import { Readable } from 'stream';
 
 @Injectable()

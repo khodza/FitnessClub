@@ -56,7 +56,6 @@ export class Product extends Document {
   @Prop({
     type: Number,
     required: [true, 'Add count'],
-    min: 0,
   })
   count: number;
 }

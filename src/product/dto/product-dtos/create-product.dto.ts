@@ -1,5 +1,5 @@
 import { IsString } from '@nestjs/class-validator';
-import { IsIn, IsNotEmpty, IsNumber, IsOptional, Min } from 'class-validator';
+import { IsIn, IsNotEmpty, IsOptional } from 'class-validator';
 import { ID } from 'src/users/dto/id.dto';
 import { ProductType } from '../../types';
 
@@ -9,9 +9,7 @@ export class CreateProductDto {
   name: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  @Min(0)
-  price: number = 5000;
+  price: number;
 
   @IsNotEmpty()
   @IsString()
@@ -30,9 +28,7 @@ export class CreateProductDto {
   category: ID;
 
   @IsNotEmpty()
-  @IsNumber()
-  @Min(1)
-  count: number = 10;
+  count: number;
 
   @IsNotEmpty()
   @IsString()

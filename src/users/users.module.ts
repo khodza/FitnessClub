@@ -8,9 +8,9 @@ import { AuthService } from 'src/auth/auth.service';
 import { jwtModule } from 'src/modules/jwt.module';
 import { JwtStrategy } from 'src/auth/strategies/jwt.strategy';
 import { LocalStrategy } from 'src/auth/strategies/local.strategy';
-import { ImageService } from 'src/image.service';
+import { ImageService } from 'src/services/image.service';
 import { VerificationService } from 'src/auth/verification.service';
-import { EmailService } from 'src/email.service';
+import { EmailService } from 'src/services/email.service';
 import { VerificationSchema } from 'src/auth/verification.schema';
 
 @Module({

@@ -4,7 +4,7 @@ import { User } from 'src/users/user.schema';
 import { UsersService } from '../users/users.service';
 import * as bycypt from 'bcrypt';
 import { VerificationService } from './verification.service';
-import { EmailService } from 'src/email.service';
+import { EmailService } from 'src/services/email.service';
 
 @Injectable()
 export class AuthService {
