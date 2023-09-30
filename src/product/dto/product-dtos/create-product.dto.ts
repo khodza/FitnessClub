@@ -11,7 +11,7 @@ export class CreateProductDto {
   @IsNotEmpty()
   @IsNumber()
   @Min(0)
-  price: number;
+  price: number = 5000;
 
   @IsNotEmpty()
   @IsString()
@@ -32,7 +32,7 @@ export class CreateProductDto {
   @IsNotEmpty()
   @IsNumber()
   @Min(1)
-  count: number;
+  count: number = 10;
 
   @IsNotEmpty()
   @IsString()

@@ -17,7 +17,7 @@ export class Product extends Document {
   name: string;
 
   @Prop({
-    type: String,
+    type: Number,
     required: [true, 'Add price name'],
   })
   price: number;
@@ -55,6 +55,8 @@ export class Product extends Document {
 
   @Prop({
     type: Number,
+    required: [true, 'Add count'],
+    min: 0,
   })
   count: number;
 }

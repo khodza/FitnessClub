@@ -7,6 +7,7 @@ import { MongoDbModule } from './modules/mongodb.module';
 import { APP_PIPE } from '@nestjs/core';
 import { TeachersModule } from './teachers/teachers.module';
 import { ProductsModule } from './product/product.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ProductsModule } from './product/product.module';
     UsersModule,
     TeachersModule,
     ProductsModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [

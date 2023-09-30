@@ -23,6 +23,7 @@ import { CreateEquipDto } from './dto/equip-dtos/create-equip.dto';
 import { CategoriesService } from './category.service';
 import { ProductType } from './types';
 import { CreateEquipCategoryDto } from './dto/equip-dtos/create-equip-category.dto';
+import { DeleteProductsDto } from './dto/delete-product.dto';
 
 @Controller('equipments')
 export class EquipController {
@@ -132,5 +133,15 @@ export class EquipController {
   @Delete(':id')
   removeEquip(@Param() params: ID) {
     return this.productsService.removeProduct(params.id, this.productType);
+  }
+
+  @Roles('admin')
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Delete()
+  removeManyEquips(@Body() body: DeleteProductsDto) {
+    return this.productsService.removeManyProducts(
+      body.products,
+      this.productType,
+    );
   }
 }

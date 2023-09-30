@@ -23,6 +23,7 @@ import { UpdateProductDto } from './dto/product-dtos/update-product.dto';
 import { CategoriesService } from './category.service';
 import { ProductType } from './types';
 import { CreateProductCategoryDto } from './dto/product-dtos/create-product-category.dto';
+import { DeleteProductsDto } from './dto/delete-product.dto';
 
 @Controller('products')
 export class ProductsController {
@@ -75,6 +76,7 @@ export class ProductsController {
     @UploadedFile() avatarFile: Express.Multer.File,
     @Body() createProductDto: CreateProductDto,
   ) {
+    console.log(createProductDto);
     return this.productsService.createProduct(createProductDto, avatarFile);
   }
 
@@ -133,4 +135,21 @@ export class ProductsController {
   removeProduct(@Param() params: ID) {
     return this.productsService.removeProduct(params.id, this.productType);
   }
+
+  @Roles('admin')
+  @UseGuards(JwtAuthGuard, RoleGuard)
+  @Delete()
+  removeManyProducts(@Body() body: DeleteProductsDto) {
+    return this.productsService.removeManyProducts(
+      body.products,
+      this.productType,
+    );
+  }
+
+  //Search Products [admin,user]
+  // @UseGuards(JwtAuthGuard)
+  // @Get('search/:query')
+  // searchProducts(@Param() params: ID) {
+  //   return this.productsService.searchProducts(params.id, this.productType);
+  // }
 }

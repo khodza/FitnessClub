@@ -59,12 +59,18 @@ export class ProductsService {
 
   async findProduct(
     id: mongoose.Types.ObjectId,
-    type: ProductType,
+    type?: ProductType,
     SelFields?: string,
     popFields?: string,
   ): Promise<Product> {
     try {
-      const Product = this.ProductModel.findOne({ _id: id, type: type });
+      let Product;
+      if (!type) {
+        Product = this.ProductModel.findOne({ _id: id });
+      } else {
+        Product = this.ProductModel.findOne({ _id: id, type: type });
+      }
+
       if (SelFields) {
         Product.select(SelFields);
       }
@@ -138,6 +144,31 @@ export class ProductsService {
 
       await this.imageService.deleteImage(deletedProduct.avatar);
       return { message: `Product with ID ${id} has been deleted` };
+    } catch (err) {
+      throw new BadRequestException(err.message, err);
+    }
+  }
+
+  async removeManyProducts(
+    products: mongoose.Types.ObjectId[],
+    type: ProductType,
+  ) {
+    try {
+      const deletedProducts = await this.ProductModel.find({
+        _id: { $in: products },
+        type: type,
+      });
+      if (!deletedProducts) {
+        this.log.fatal(`No Products with this ID : ${products}`);
+        throw new BadRequestException(`No Products with this ID : ${products}`);
+      }
+      await this.ProductModel.deleteMany({ _id: { $in: products } });
+      this.log.log(`Deleted Products with ID ${products}`);
+
+      await this.imageService.deleteManyImages(
+        deletedProducts.map((product) => product.avatar),
+      );
+      return { message: `Products with ID ${products} has been deleted` };
     } catch (err) {
       throw new BadRequestException(err.message, err);
     }

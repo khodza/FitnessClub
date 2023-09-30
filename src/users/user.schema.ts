@@ -4,12 +4,6 @@ import * as bycypt from 'bcrypt';
 
 @Schema({
   timestamps: true,
-  toJSON: {
-    transform: function (doc, ret) {
-      delete ret.password;
-      delete ret.__v;
-    },
-  },
 })
 export class User extends Document {
   @Prop({
@@ -32,7 +26,6 @@ export class User extends Document {
 
   @Prop({
     type: String,
-    required: [true, 'Add avatar'],
   })
   avatar: string;
 
@@ -71,15 +64,41 @@ export class User extends Document {
     default: ['user'],
   })
   roles: string[];
-
-  @Prop({
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Product',
-  })
-  products: mongoose.Types.ObjectId[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
+
+UserSchema.virtual('age').get(function () {
+  // Calculate the age based on the birth_date
+  const birthDate = this.birth_date;
+  if (!birthDate) {
+    return null; // Handle cases where birth_date is missing
+  }
+
+  // Calculate the age in years
+  const today = new Date();
+  const age = today.getFullYear() - birthDate.getFullYear();
+
+  // Adjust the age if the birthday has not occurred this year yet
+  const birthMonth = birthDate.getMonth();
+  const currentMonth = today.getMonth();
+  if (
+    currentMonth < birthMonth ||
+    (currentMonth === birthMonth && today.getDate() < birthDate.getDate())
+  ) {
+    return age - 1;
+  }
+
+  return age;
+});
+UserSchema.set('toJSON', {
+  virtuals: true,
+  transform: function (doc, ret) {
+    // Exclude the password and __v fields
+    delete ret.password;
+    delete ret.__v;
+  },
+});
 
 //CREATING INDEXES TO MAKE EMAIL AND USERNAME UNIQUE
 

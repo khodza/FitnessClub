@@ -25,5 +25,6 @@ import { CategoriesService } from './category.service';
       },
     },
   ],
+  exports: [ProductsService],
 })
 export class ProductsModule {}

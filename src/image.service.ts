@@ -71,15 +71,31 @@ export class ImageService {
 
   async deleteImage(filename: string): Promise<void> {
     const filePath = `${this.uploadDirectory}/${filename}`;
-    console.log(filePath);
+
     if (await existsAsync(filePath)) {
       try {
-        console.log('deleting file');
         await unlinkAsync(filePath);
+        this.log.log(`File ${filename} has been deleted.`);
       } catch (error) {
         // Handle file deletion error
+        this.log.error(`Failed to delete file: ${error.message}`);
         throw new Error(`Failed to delete file: ${error.message}`);
       }
+    } else {
+      // File does not exist, so log a message
+      this.log.warn(`File ${filename} does not exist, skipping deletion.`);
+    }
+  }
+
+  async deleteManyImages(filenames: string[]): Promise<void> {
+    try {
+      for (const filename of filenames) {
+        await this.deleteImage(filename);
+      }
+    } catch (error) {
+      // Handle any file deletion error
+      this.log.error(`Failed to delete files: ${error.message}`);
+      throw new Error(`Failed to delete files: ${error.message}`);
     }
   }
 }

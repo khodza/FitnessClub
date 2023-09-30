@@ -36,7 +36,9 @@ export class UsersService {
       return newUser;
     } catch (err) {
       this.log.error(err);
-      await this.imageService.deleteImage(createUserDto.avatar);
+      if (avatarFile) {
+        await this.imageService.deleteImage(createUserDto.avatar);
+      }
       throw new BadRequestException(err.message, err);
     }
   }
@@ -120,7 +122,9 @@ export class UsersService {
       return user;
     } catch (err) {
       this.log.error(err);
-      await this.imageService.deleteImage(updateOptions.avatar);
+      if (avatarFile) {
+        await this.imageService.deleteImage(updateOptions.avatar);
+      }
       throw new BadRequestException(err.message, err);
     }
   }

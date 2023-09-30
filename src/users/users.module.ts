@@ -28,5 +28,6 @@ import { ImageService } from 'src/image.service';
       },
     },
   ],
+  exports: [UsersService, 'UserImageService'],
 })
 export class UsersModule {}
