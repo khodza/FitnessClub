@@ -21,7 +21,7 @@ export class EmailService {
   async sendVerificationCodeEmail(email: string, code: string): Promise<void> {
     const mailOptions = {
       from: 'fitnessclubnajot@gmail.com',
-      to: 'khodzapro@gmail.com',
+      to: email,
       subject: 'Verification Code',
       text: `Your verification code is: ${code}`,
     };
